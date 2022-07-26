@@ -1,7 +1,23 @@
+import './GameScreen.css';
+
 const GameScreen = ({ setStage }) => (
-	<div>
-		<h1>Jogo do Silvio Santos</h1>
-		<button onClick={() => setStage('gameover')}>Terminar</button>
+	<div className='Game'>
+		<p>
+			Pontos: <span>?</span>
+		</p>
+		<p>
+			Dica: <span>palavra...</span>
+		</p>
+		<div>
+			<span className='wordLetter'>A</span>
+			<span className='wordLetter'>B</span>
+		</div>
+		<form>
+			<label>
+				Letra: <input type='text' maxLength={1} required />
+			</label>
+			<button type='submit'>Enviar</button>
+		</form>
 	</div>
 );
 
