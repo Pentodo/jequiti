@@ -1,3 +1,5 @@
+import './EndScreen.css';
+
 const EndScreen = ({ setStage }) => (
 	<div>
 		<h1>Jogo do Silvio Santos</h1>

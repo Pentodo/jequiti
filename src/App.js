@@ -15,7 +15,6 @@ function App() {
 
 	return (
 		<div className='App'>
-			<h1>Jogo do Silvio Santos</h1>
 			{stage === 'start' && <StartScreen setStage={setStage} />}
 			{stage === 'playing' && <GameScreen setStage={setStage} />}
 			{stage === 'gameover' && <EndScreen setStage={setStage} />}
