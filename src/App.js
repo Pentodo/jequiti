@@ -9,9 +9,9 @@ function App() {
 
 	return (
 		<div className='App'>
-			{scene === 'start' && <StartScreen nextScene={() => setScene('playing')} />}
-			{scene === 'playing' && <GameScreen nextScene={() => setScene('gameover')} />}
-			{scene === 'gameover' && <EndScreen nextScene={() => setScene('start')} />}
+			{scene == 'start' && <StartScreen nextScene={() => setScene('playing')} />}
+			{scene == 'playing' && <GameScreen nextScene={() => setScene('gameover')} />}
+			{scene == 'gameover' && <EndScreen nextScene={() => setScene('start')} />}
 		</div>
 	);
 }
