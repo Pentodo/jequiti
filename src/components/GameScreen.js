@@ -26,7 +26,7 @@ const GameScreen = ({ nextScene }) => {
 		nextScene();
 	}
 
-	if (word.length == contains.length) {
+	if (word.length == contains.length && score != 0) {
 		setScore(score + 100);
 		setHint('');
 		setAttempts(3);
@@ -43,10 +43,11 @@ const GameScreen = ({ nextScene }) => {
 
 	const handleGuess = e => {
 		e.preventDefault();
-		const input = e.target.guess;
-		const guessedLetter = input.value;
 
-		if (guessedLetter != '' || !contains.includes(guessedLetter)) {
+		const input = e.target.guess;
+		const guessedLetter = input.value.toLowerCase();
+
+		if (guessedLetter != '' && !contains.includes(guessedLetter)) {
 			setGuessed(guessed == '' ? guessedLetter : `${guessed}, ${guessedLetter}`);
 
 			const compareLetters = word.filter(letter => letter === guessedLetter);
