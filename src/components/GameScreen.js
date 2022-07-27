@@ -13,7 +13,7 @@ const GameScreen = ({ nextScene }) => (
 			<div className='box'> </div>
 		</div>
 		<form>
-			<input type='text' placeholder='?' maxLength={1} required />
+			<input type='text' placeholder='?' maxLength={1} required autoFocus />
 			<button type='submit'>Chutar</button>
 		</form>
 		<div className='info'>
