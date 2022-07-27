@@ -5,19 +5,19 @@ import GameScreen from './components/GameScreen';
 import EndScreen from './components/EndScreen';
 
 function App() {
-	const stages = [
-		{ id: 1, stage: 'start' },
-		{ id: 2, stage: 'playing' },
-		{ id: 3, stage: 'gameover' },
+	const scenes = [
+		{ id: 1, scene: 'start' },
+		{ id: 2, scene: 'playing' },
+		{ id: 3, scene: 'gameover' },
 	];
 
-	const [stage, setStage] = useState(stages[0].stage);
+	const [scene, setScene] = useState(scenes[0].scene);
 
 	return (
 		<div className='App'>
-			{stage === 'start' && <StartScreen setStage={setStage} />}
-			{stage === 'playing' && <GameScreen setStage={setStage} />}
-			{stage === 'gameover' && <EndScreen setStage={setStage} />}
+			{scene === 'start' && <StartScreen nextScene={() => setScene(scenes[1].scene)} />}
+			{scene === 'playing' && <GameScreen nextScene={() => setScene(scenes[2].scene)} />}
+			{scene === 'gameover' && <EndScreen nextScene={() => setScene(scenes[0].scene)} />}
 		</div>
 	);
 }

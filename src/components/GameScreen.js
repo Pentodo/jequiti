@@ -1,6 +1,6 @@
 import './GameScreen.css';
 
-const GameScreen = ({ setStage }) => (
+const GameScreen = ({ nextScene }) => (
 	<div className='Game'>
 		<div className='info'>
 			Pontos: <span className='score'>100</span>

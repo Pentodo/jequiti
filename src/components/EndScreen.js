@@ -1,9 +1,9 @@
 import './EndScreen.css';
 
-const EndScreen = ({ setStage }) => (
+const EndScreen = ({ nextScene }) => (
 	<div>
 		<h1>Jogo do Silvio Santos</h1>
-		<button onClick={() => setStage('start')}>Recomeçar</button>
+		<button onClick={nextScene}>Recomeçar</button>
 	</div>
 );
 
