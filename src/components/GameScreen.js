@@ -62,7 +62,7 @@ const GameScreen = ({ nextScene, score, setScore }) => {
 		const input = e.target.guess;
 		const guessedLetter = input.value.toLowerCase();
 
-		if (guessedLetter != '' && !guessed.includes(guessedLetter)) {
+		if (guessedLetter !== '' && !guessed.includes(guessedLetter)) {
 			setGuessed([...guessed, guessedLetter]);
 
 			const compareLetters = word.filter((letter) => letter === guessedLetter);
