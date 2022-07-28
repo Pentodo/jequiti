@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { gameData } from '../data/gameData';
 import './GameScreen.css';
 
 const GameScreen = ({ nextScene, score, setScore }) => {
 	const getData = () => {
-		const getRandom = list => list[Math.floor(list.length * Math.random())];
+		const getRandom = (list) => list[Math.floor(list.length * Math.random())];
 
 		const hints = Object.keys(gameData);
 		const hint = getRandom(hints);
@@ -21,9 +21,11 @@ const GameScreen = ({ nextScene, score, setScore }) => {
 	const [guessed, setGuessed] = useState([]);
 	const [contains, setContains] = useState([]);
 
-	if (attempts === 0) {
-		nextScene();
-	}
+	useEffect(() => {
+		if (attempts === 0) {
+			nextScene();
+		}
+	});
 
 	if (word.length === contains.length && score !== 0) {
 		setScore(score + 100);
@@ -40,16 +42,30 @@ const GameScreen = ({ nextScene, score, setScore }) => {
 		setWord(data.word.split(''));
 	}
 
-	const handleGuess = e => {
+	const handleInput = (e) => {
+		const input = document.querySelector('input[name=guess]');
+		const key = e.key;
+
+		if (key === 'Enter') {
+			const button = document.querySelector('button');
+			button.click();
+
+			return;
+		} else {
+			input.value = /^[A-Za-z]{1}$/.test(key) ? key : '';
+		}
+	};
+
+	const handleGuess = (e) => {
 		e.preventDefault();
 
 		const input = e.target.guess;
 		const guessedLetter = input.value.toLowerCase();
 
-		if (guessedLetter !== '' && !contains.includes(guessedLetter)) {
+		if (guessedLetter != '' && !guessed.includes(guessedLetter)) {
 			setGuessed([...guessed, guessedLetter]);
 
-			const compareLetters = word.filter(letter => letter === guessedLetter);
+			const compareLetters = word.filter((letter) => letter === guessedLetter);
 
 			if (compareLetters.length > 0) {
 				setScore(score + compareLetters.length * 10);
@@ -84,8 +100,13 @@ const GameScreen = ({ nextScene, score, setScore }) => {
 		return 'nenhuma';
 	};
 
+	useEffect(() => {
+		document.addEventListener('keydown', handleInput);
+		return () => document.removeEventListener('keydown', handleInput);
+	});
+
 	return (
-		<div className='Game' onClick={() => document.querySelector('input[name=guess]').focus()}>
+		<div className='Game'>
 			<div className='info'>
 				Pontos: <span className='score'>{score || 'nada ainda'}</span>
 				<br />
@@ -93,7 +114,14 @@ const GameScreen = ({ nextScene, score, setScore }) => {
 			</div>
 			<div className='word'>{printLetters()}</div>
 			<form onSubmit={handleGuess}>
-				<input type='text' name='guess' placeholder='?' maxLength={1} pattern='[A-Za-z]' autoFocus />
+				<input
+					type='text'
+					name='guess'
+					placeholder='?'
+					maxLength={1}
+					onKeyDown={handleInput}
+					readOnly
+				/>
 				<button type='submit'>Chutar</button>
 			</form>
 			<div className='info'>
