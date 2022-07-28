@@ -1,10 +1,17 @@
 import './EndScreen.css';
 
-const EndScreen = ({ nextScene }) => (
-	<div>
-		<h1>Jogo do Silvio Santos</h1>
-		<button onClick={nextScene}>Recomeçar</button>
-	</div>
-);
+const EndScreen = ({ nextScene, score, setScore }) => {
+	const handleReset = () => {
+		setScore(0);
+		nextScene();
+	};
+
+	return (
+		<div className='End'>
+			<h1>Parabéns, você fez {score} pontos!</h1>
+			<button onClick={handleReset}>Recomeçar</button>
+		</div>
+	);
+};
 
 export default EndScreen;
