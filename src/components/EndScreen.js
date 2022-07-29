@@ -20,7 +20,7 @@ const EndScreen = ({ nextScene, score, setScore }) => {
 
 	return (
 		<div className='End'>
-			<h1>Parabéns, você fez {score} pontos!</h1>
+			<span className='title'>Parabéns, você fez {score} pontos!</span>
 			<button onClick={handleReset}>Recomeçar</button>
 		</div>
 	);

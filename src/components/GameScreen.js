@@ -3,6 +3,8 @@ import { gameData } from '../data/gameData';
 import './GameScreen.css';
 
 const GameScreen = ({ nextScene, score, setScore }) => {
+	const [isMobile] = useState(window.innerWidth <= 420);
+
 	const getData = () => {
 		const getRandom = (list) => list[Math.floor(list.length * Math.random())];
 
@@ -28,32 +30,27 @@ const GameScreen = ({ nextScene, score, setScore }) => {
 	useEffect(() => {
 		if (attempts === 0) {
 			nextScene();
+		} else {
+			if (word.length === contains.length && score !== 0) {
+				setScore(score + 100);
+				setHint('');
+				setAttempts(3);
+				setGuesses([]);
+				setContains([]);
+			}
+
+			if (hint === '') {
+				const data = getData();
+
+				setHint(data.hint);
+				setWord(data.word.split(''));
+			}
 		}
-	});
-
-	if (word.length === contains.length && score !== 0) {
-		setScore(score + 100);
-		setHint('');
-		setAttempts(3);
-		setGuesses([]);
-		setContains([]);
-	}
-
-	if (hint === '') {
-		const data = getData();
-
-		setHint(data.hint);
-		setWord(data.word.split(''));
-	}
+	}, [attempts, nextScene, word.length, contains.length, score, hint, setScore]);
 
 	const handleInput = (e) => {
-		const key = e.key;
-
-		if (key === 'Enter') {
-			submitButton.current.click();
-		} else {
-			setGuessedLetter(/^[A-Za-z]{1}$/.test(key) ? key.toLowerCase() : '');
-		}
+		const value = e.target.value;
+		setGuessedLetter(/^[A-Za-z]$/.test(value) ? value.toLowerCase() : '');
 	};
 
 	const handleGuess = (e) => {
@@ -98,8 +95,18 @@ const GameScreen = ({ nextScene, score, setScore }) => {
 	};
 
 	useEffect(() => {
-		document.addEventListener('keydown', handleInput);
-		return () => document.removeEventListener('keydown', handleInput);
+		const handleKeyInput = (e) => {
+			const key = e.key;
+
+			if (key === 'Enter') {
+				submitButton.current.click();
+			} else {
+				setGuessedLetter(/^[A-Za-z]$/.test(key) ? key.toLowerCase() : '');
+			}
+		};
+
+		document.addEventListener('keydown', handleKeyInput);
+		return () => document.removeEventListener('keydown', handleKeyInput);
 	});
 
 	return (
@@ -117,8 +124,8 @@ const GameScreen = ({ nextScene, score, setScore }) => {
 					placeholder='?'
 					maxLength={1}
 					value={guessedLetter}
-					onKeyDown={handleInput}
-					readOnly
+					onChange={isMobile ? handleInput : undefined}
+					readOnly={!isMobile}
 				/>
 				<button type='submit' ref={submitButton}>
 					Chutar

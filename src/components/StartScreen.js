@@ -15,7 +15,7 @@ const StartScreen = ({ nextScene }) => {
 
 	return (
 		<div className='Start'>
-			<h1>Jogo do Silvio Santos</h1>
+			<span className='title'>Jogo do Silvio Santos</span>
 			<button onClick={nextScene}>Começar</button>
 		</div>
 	);
