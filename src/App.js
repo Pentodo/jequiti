@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import StartScreen from './components/StartScreen';
 import GameScreen from './components/GameScreen';
@@ -8,6 +8,10 @@ const scenes = { start: StartScreen, playing: GameScreen, gameover: EndScreen };
 const scenesKeys = Object.keys(scenes);
 
 function App() {
+	useEffect(() => {
+		document.title = 'Roda a Roda Jequiti';
+	});
+
 	const [scene, setScene] = useState('start');
 	const [score, setScore] = useState(0);
 
