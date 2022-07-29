@@ -42,7 +42,7 @@ form {
 	align-items: center;
 	background-color: white;
 	color: black;
-	box-shadow: 0px 0px 0px 2px grey;
+	border: 1px solid black;
 	width: 1.25em;
 	height: 1.5em;
 	font-size: 5rem;
