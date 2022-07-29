@@ -52,7 +52,7 @@ const GameScreen = ({ nextScene, score, setScore }) => {
 		if (key === 'Enter') {
 			submitButton.current.click();
 		} else {
-			setGuessedLetter(/^[A-Za-z]{1}$/.test(key) ? key : '');
+			setGuessedLetter(/^[A-Za-z]{1}$/.test(key) ? key.toLowerCase() : '');
 		}
 	};
 
