@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gameData } from '../data/gameData';
 import './GameScreen.css';
 
@@ -14,6 +14,8 @@ const GameScreen = ({ nextScene, score, setScore }) => {
 
 		return { hint, word };
 	};
+
+	const submitButton = useRef();
 
 	const [hint, setHint] = useState('');
 	const [word, setWord] = useState([]);
@@ -47,10 +49,7 @@ const GameScreen = ({ nextScene, score, setScore }) => {
 		const key = e.key;
 
 		if (key === 'Enter') {
-			const button = document.querySelector('button');
-			button.click();
-
-			return;
+			submitButton.current.click();
 		} else {
 			input.value = /^[A-Za-z]{1}$/.test(key) ? key : '';
 		}
@@ -122,7 +121,9 @@ const GameScreen = ({ nextScene, score, setScore }) => {
 					onKeyDown={handleInput}
 					readOnly
 				/>
-				<button type='submit'>Chutar</button>
+				<button type='submit' ref={submitButton}>
+					Chutar
+				</button>
 			</form>
 			<div className='info'>
 				Tentativas restantes: <span className='attempts'>{attempts}</span>
